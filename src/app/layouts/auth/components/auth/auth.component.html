@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="title">Авторизация</div>
+  <form class="form-auth" [formGroup]="authForm">
+    <mat-form-field class="email">
+      <mat-label>Логин</mat-label>
+      <input matInput formControlName="email" placeholder="Введите логин заданный при регистрации">
+    </mat-form-field>
+
+    <mat-form-field class="password">
+      <mat-label>Пароль</mat-label>
+      <input matInput formControlName="password" placeholder="Введите Ваш пароль">
+    </mat-form-field>
+  </form>
+  <button 
+    mat-flat-button 
+    color="primary" 
+    type="submit" 
+    [disabled]="authForm.invalid || authorized"
+    (click)="onClickAuth()">Вход</button>
+</div>

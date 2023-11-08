@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="title">Регистрация</div>
+  <form class="form-auth" [formGroup]="signUpForm">
+    <mat-form-field class="email">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Введите Ваш email">
+    </mat-form-field>
+
+    <mat-form-field class="password">
+      <mat-label>Пароль</mat-label>
+      <input matInput formControlName="password" placeholder="Придумайте пароль не менее 6 символов">
+    </mat-form-field>
+  </form>
+  <button 
+    mat-flat-button 
+    color="primary" 
+    type="submit" 
+    [disabled]="signUpForm.invalid || authorized"
+    (click)="onClickSighUp()">Регистрация</button>
+</div>
