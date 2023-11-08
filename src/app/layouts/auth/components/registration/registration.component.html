@@ -3,18 +3,34 @@
   <form class="form-auth" [formGroup]="signUpForm">
     <mat-form-field class="email">
       <mat-label>Email</mat-label>
-      <input matInput formControlName="email" placeholder="Введите Ваш email">
+      <input matInput name="email" formControlName="email" placeholder="Введите Ваш email">
     </mat-form-field>
 
     <mat-form-field class="password">
       <mat-label>Пароль</mat-label>
-      <input matInput formControlName="password" placeholder="Придумайте пароль не менее 6 символов">
+      <input minlength="6" matInput formControlName="password" placeholder="Придумайте пароль не менее 6 символов">
     </mat-form-field>
+
   </form>
   <button 
     mat-flat-button 
     color="primary" 
     type="submit" 
     [disabled]="signUpForm.invalid || authorized"
-    (click)="onClickSighUp()">Регистрация</button>
+    (click)="onClickSighUp()"
+    >Регистрация</button>
+
+  <div class="error">
+    <small *ngIf="signUpForm.controls['password']?.errors?.['minlength'] && signUpForm?.controls?.['password']?.touched">
+      Минимальная длинна пароля 6 символов</small>
+    <small
+      *ngIf="signUpForm.controls['email']?.errors?.['required'] && signUpForm.controls?.['email']?.touched">
+     Email обязательное поле</small>
+    <small
+      *ngIf="signUpForm.controls['password']?.errors?.['required'] && signUpForm.controls?.['password']?.touched">
+     Пароль обязательное поле</small>
+    <small
+      *ngIf="signUpForm.controls['email']?.errors?.['email'] && signUpForm.controls?.['email']?.touched">
+     Некорректный Email</small>
+  </div>
 </div>

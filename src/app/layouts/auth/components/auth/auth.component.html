@@ -16,5 +16,18 @@
     color="primary" 
     type="submit" 
     [disabled]="authForm.invalid || authorized"
-    (click)="onClickAuth()">Вход</button>
+    (click)="onClickAuth()">Вход
+  </button>
+  <div class="error">
+    <small
+      *ngIf="authForm.controls['email']?.errors?.['required'] && authForm?.controls?.['email']?.touched">
+     Email обязательное поле</small>
+    <small
+      *ngIf="authForm.controls['password']?.errors?.['required'] && authForm?.controls?.['password']?.touched">
+     Пароль обязательное поле</small>
+    <small
+     *ngIf="authForm.controls['email']?.errors?.['email'] && authForm.controls?.['email']?.touched">
+    Некорректный Email</small>
+  </div>
+  
 </div>

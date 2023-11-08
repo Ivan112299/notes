@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Subject, take, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -9,6 +10,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./registration.component.less']
 })
 export class RegistrationComponent {
+
+  readonly destroyed$ = new Subject()
 
   nonAuth: Boolean | undefined;
   authorized: Boolean = false;
@@ -24,8 +27,11 @@ export class RegistrationComponent {
     private authService: AuthService) {}
 
   onClickSighUp() {
+    console.log('this.signUpForm', this.signUpForm)
     this.authorized = true
-    this.authService.singUp(this.signUpForm.value).subscribe({
+    this.authService.singUp(this.signUpForm.value)
+    .pipe(take(1), takeUntil(this.destroyed$))
+    .subscribe({
       next: () => {
         this.signUpForm.reset()
         this.router.navigate(['/main'])
@@ -35,5 +41,10 @@ export class RegistrationComponent {
         this.authorized = false;
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next('')
+    this.destroyed$.complete()
   }
 }
