@@ -13,13 +13,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './layouts/auth/services/auth.service';
 import { MainComponent } from './layouts/main/components/main/main.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HeaderComponent } from './layouts/main/components/header/header.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     RegistrationComponent,
-    MainComponent
+    MainComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatMenuModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
