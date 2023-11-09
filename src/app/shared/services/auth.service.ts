@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, ObservableInput, Subject, catchError, tap, throwError } from 'rxjs';
-import { User } from '../models/user';
+import { User } from '../../layouts/auth/models/user';
 
 @Injectable()
 export class AuthService {

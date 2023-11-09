@@ -1,21 +1,22 @@
 <div class="container">
   <div class="left-menu">
-
-    <div class="header-item logo">
+    <!-- <div class="header-item logo">
       <div>Logo</div>
-    </div>
+    </div> -->
 
     <div class="header-item">
-      <button mat-button [matMenuTriggerFor]="menu">Создать</button>
-      <mat-menu #menu="matMenu">
+      <button mat-button [matMenuTriggerFor]="menuCreate">Создать</button>
+      <mat-menu #menuCreate="matMenu">
         <button mat-menu-item>Доску</button>
         <button mat-menu-item>Карточку</button>
       </mat-menu>
     </div>
 
     <div class="header-item">
-      <button mat-button [matMenuTriggerFor]="menu">Сменить доску</button>
-      <mat-menu #menu="matMenu">
+      <button mat-button [matMenuTriggerFor]="menuCheckout">
+        Сменить доску
+      </button>
+      <mat-menu #menuCheckout="matMenu">
         <button mat-menu-item>Доска 1</button>
         <button mat-menu-item>Доска 2</button>
       </mat-menu>
@@ -24,15 +25,11 @@
 
   <div class="right-menu">
     <div class="header-item">
-      <button mat-button>Выход</button>
+      <button mat-button (click)="onClickLogout()">Выход</button>
     </div>
   </div>
 
-
-  
-  <div class="header-item">
-
-  </div>
+  <div class="header-item"></div>
   <div class="header-item user">
     <div class="user-photo"></div>
   </div>

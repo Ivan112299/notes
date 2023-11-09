@@ -10,11 +10,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './layouts/auth/services/auth.service';
+import { AuthService } from './shared/services/auth.service';
 import { MainComponent } from './layouts/main/components/main/main.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './layouts/main/components/header/header.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { BoardsService } from './shared/services/boards.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { MatMenuModule } from '@angular/material/menu';
     HttpClientModule,
     MatMenuModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, BoardsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
