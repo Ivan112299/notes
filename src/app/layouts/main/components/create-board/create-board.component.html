@@ -1,0 +1,13 @@
+<form class="form-create-board" [formGroup]="createBoardForm">
+  <mat-form-field class="name">
+    <mat-label>Название доски</mat-label>
+    <input matInput required formControlName="name" placeholder="Введите название доски">
+  </mat-form-field>
+</form>
+<button 
+  mat-flat-button 
+  color="primary" 
+  type="submit" 
+  [disabled]="createBoardForm.invalid || creating"
+  (click)="onClickCreateBoard()">Создать
+</button>

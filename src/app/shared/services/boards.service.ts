@@ -20,7 +20,6 @@ export class BoardsService {
   getBoards(): Observable<Board[]> {
     return this.http.get(`${this.fbDbUrl}/boards.json`).pipe(
       map((boards: any) => {
-        console.log('boards', boards);
         const boardsData = Object.keys(boards);
         return boardsData.map((id) => {
           const currentBoard = boards[id as keyof typeof boards] as Board;
@@ -34,12 +33,16 @@ export class BoardsService {
       })
     );
   }
+
+  postBoard(board:Board): Observable<any> {
+    return this.http.post(`${this.fbDbUrl}/boards.json`, board)
+  }
 }
 
 export type Board = {
-  id: string,
+  id?: string,
   name: string,
-  owner: string,
+  owner?: string,
   statuses?: any[],
 };
 

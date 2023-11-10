@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './layouts/main/components/header/header.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { BoardsService } from './shared/services/boards.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CreateBoardComponent } from './layouts/main/components/create-board/create-board.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { BoardsService } from './shared/services/boards.service';
     AuthComponent,
     RegistrationComponent,
     MainComponent,
-    HeaderComponent
+    HeaderComponent,
+    CreateBoardComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { BoardsService } from './shared/services/boards.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ],
   providers: [AuthService, BoardsService],
   bootstrap: [AppComponent]
