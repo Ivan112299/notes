@@ -18,6 +18,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { BoardsService } from './shared/services/boards.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateBoardComponent } from './layouts/main/components/create-board/create-board.component';
+import { BoardComponent } from './layouts/main/components/board/board.component';
+import { PageNotFoundComponent } from './layouts/main/components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { CreateBoardComponent } from './layouts/main/components/create-board/cre
     RegistrationComponent,
     MainComponent,
     HeaderComponent,
-    CreateBoardComponent
+    CreateBoardComponent,
+    BoardComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,10 @@ import { CreateBoardComponent } from './layouts/main/components/create-board/cre
     MatMenuModule,
     MatDialogModule
   ],
-  providers: [AuthService, BoardsService],
+  providers: [
+    AuthService, 
+    BoardsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { BoardsService } from 'src/app/shared/services/boards.service';
+import { Board, BoardsService } from 'src/app/shared/services/boards.service';
 import { CreateBoardComponent } from '../create-board/create-board.component';
 
 @Component({
@@ -13,7 +13,7 @@ import { CreateBoardComponent } from '../create-board/create-board.component';
 })
 export class HeaderComponent implements OnInit {
 
-  boardsNames: string[] = []
+  boards: Board[] = []
 
   @ViewChild('menuCheckout')
   menuCheckout!: any
@@ -28,13 +28,17 @@ export class HeaderComponent implements OnInit {
   }
   ngOnInit(): void {
     this.boardsServise.getBoards().subscribe((boards) => {
-      this.boardsNames = boards.map(board => board.name)
-
+      this.boards = boards
     })
   }
 
   openDialog() {
     const dialogRef = this.dialog.open(CreateBoardComponent, {restoreFocus: false});
+  }
+
+  onSelectedBoard(boardId: string | undefined){
+    if(!boardId) return;
+    this.route.navigate(['main', boardId])
   }
 
   onClickLogout(){

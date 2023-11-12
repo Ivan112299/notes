@@ -34,10 +34,15 @@ export class BoardsService {
     );
   }
 
-  postBoard(board:Board): Observable<any> {
+  getBoard(id: string) {
+    return this.http.get(`${this.fbDbUrl}/boards/${id}.json`)
+  }
+
+  postBoard(board: Board): Observable<any> {
     return this.http.post(`${this.fbDbUrl}/boards.json`, board)
   }
 }
+
 
 export type Board = {
   id?: string,

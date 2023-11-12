@@ -14,7 +14,7 @@
         Сменить доску
       </button>
       <mat-menu #menuCheckout="matMenu">
-        <button *ngFor="let boardname of boardsNames" mat-menu-item>{{boardname}}</button>
+        <button *ngFor="let board of boards" mat-menu-item (click)="onSelectedBoard(board.id)">{{board.name}}</button>
       </mat-menu>
     </div>
   </div>
