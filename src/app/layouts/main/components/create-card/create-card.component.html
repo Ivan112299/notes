@@ -1,0 +1,22 @@
+<form class="form-create-card" [formGroup]="createCardForm">
+  <mat-form-field>
+    <mat-label>Название</mat-label>
+    <input matInput required formControlName="name" placeholder="Введите название">
+  </mat-form-field>
+  <mat-form-field class="textarea">
+    <mat-label>Описание</mat-label>
+    <textarea matInput formControlName="content" placeholder="Описание"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>На какой доске создать карточку?</mat-label>
+    <mat-select required formControlName="boardId">
+      <mat-option *ngFor="let board of boards" [value]="board.id">{{board.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
+<button 
+  mat-flat-button color="primary" 
+  type="submit" 
+  [disabled]="createCardForm.invalid || creating"
+  (click)="onClickCreateCard()">Создать карточку
+</button>

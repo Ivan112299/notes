@@ -4,8 +4,8 @@
     <div class="header-item">
       <button mat-button [matMenuTriggerFor]="menuCreate">Создать</button>
       <mat-menu #menuCreate="matMenu">
-        <button mat-menu-item  (click)="openDialog()">Доску</button>
-        <button mat-menu-item>Карточку</button>
+        <button mat-menu-item (click)="openDialogCreateBoard()">Доску</button>
+        <button mat-menu-item (click)="openDialogCreateCard()">Карточку</button>
       </mat-menu>
     </div>
 
@@ -14,9 +14,15 @@
         Сменить доску
       </button>
       <mat-menu #menuCheckout="matMenu">
-        <button *ngFor="let board of boards" mat-menu-item (click)="onSelectedBoard(board.id)">{{board.name}}</button>
+        <button *ngFor="let board of boards" mat-menu-item
+          (click)="onSelectedBoard(board.id, board.name)">{{board.name}}</button>
       </mat-menu>
     </div>
+
+    <div class="header-item">
+      <p>Текущая доска:</p><span>{{activeBoardName}}</span>
+    </div>
+
   </div>
 
   <div class="right-menu">

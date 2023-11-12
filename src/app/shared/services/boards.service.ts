@@ -24,7 +24,7 @@ export class BoardsService {
         return boardsData.map((id) => {
           const currentBoard = boards[id as keyof typeof boards] as Board;
           return {
-            id: id,
+            id,
             name: currentBoard.name,
             owner: currentBoard.owner,
             statuses: currentBoard.statuses,
@@ -38,8 +38,8 @@ export class BoardsService {
     return this.http.get(`${this.fbDbUrl}/boards/${id}.json`)
   }
 
-  postBoard(board: Board): Observable<any> {
-    return this.http.post(`${this.fbDbUrl}/boards.json`, board)
+  postBoard(board: Board): Observable<fbResponseOfBoards> {
+    return this.http.post(`${this.fbDbUrl}/boards.json`, board) as Observable<fbResponseOfBoards>
   }
 }
 

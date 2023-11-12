@@ -20,6 +20,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CreateBoardComponent } from './layouts/main/components/create-board/create-board.component';
 import { BoardComponent } from './layouts/main/components/board/board.component';
 import { PageNotFoundComponent } from './layouts/main/components/page-not-found/page-not-found.component';
+import { CreateCardComponent } from './layouts/main/components/create-card/create-card.component';
+import { CardsService } from './shared/services/cards.service';
+import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,8 @@ import { PageNotFoundComponent } from './layouts/main/components/page-not-found/
     HeaderComponent,
     CreateBoardComponent,
     BoardComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CreateCardComponent
   ],
   imports: [
     BrowserModule,
@@ -43,11 +48,14 @@ import { PageNotFoundComponent } from './layouts/main/components/page-not-found/
     ReactiveFormsModule,
     HttpClientModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule,
+    MatListModule
   ],
   providers: [
-    AuthService, 
-    BoardsService
+    AuthService,
+    BoardsService,
+    CardsService
   ],
   bootstrap: [AppComponent]
 })

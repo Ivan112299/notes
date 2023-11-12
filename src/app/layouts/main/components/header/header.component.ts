@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Board, BoardsService } from 'src/app/shared/services/boards.service';
 import { CreateBoardComponent } from '../create-board/create-board.component';
+import { CreateCardComponent } from '../create-card/create-card.component';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,8 @@ import { CreateBoardComponent } from '../create-board/create-board.component';
 })
 export class HeaderComponent implements OnInit {
 
-  boards: Board[] = []
+  boards: Board[] = [];
+  activeBoardName: string  = 'Доска не выбрана';
 
   @ViewChild('menuCheckout')
   menuCheckout!: any
@@ -24,24 +26,30 @@ export class HeaderComponent implements OnInit {
     private auth: AuthService,
     private route: Router,
     private boardsServise: BoardsService,
-    public dialog: MatDialog){
+    public dialog: MatDialog) {
   }
+
   ngOnInit(): void {
     this.boardsServise.getBoards().subscribe((boards) => {
       this.boards = boards
     })
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(CreateBoardComponent, {restoreFocus: false});
+  openDialogCreateBoard() {
+    this.dialog.open(CreateBoardComponent, { restoreFocus: false });
   }
 
-  onSelectedBoard(boardId: string | undefined){
-    if(!boardId) return;
+  openDialogCreateCard() {
+    this.dialog.open(CreateCardComponent, { restoreFocus: false });
+  }
+
+  onSelectedBoard(boardId: string | undefined, boardName: string) {
+    if (!boardId) return;
     this.route.navigate(['main', boardId])
+    this.activeBoardName = boardName
   }
 
-  onClickLogout(){
+  onClickLogout() {
     this.auth.logout()
     this.route.navigate(['auth'])
   }

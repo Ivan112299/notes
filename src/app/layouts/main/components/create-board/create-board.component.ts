@@ -21,9 +21,7 @@ export class CreateBoardComponent implements OnDestroy {
   constructor(
     private boardsService: BoardsService,
     private fb: FormBuilder
-  ){
-
-  }
+  ){}
 
   onClickCreateBoard(){
     this.creating = true;
@@ -35,10 +33,11 @@ export class CreateBoardComponent implements OnDestroy {
       },
       error: (err) => {
         this.creating = false;
-        console.error('Ошибка создания доски', err)
+        console.error('Ошибка создания доски', err) // TODO: заменить на алерт
       }
     })
   }
+
   ngOnDestroy(): void {
     this.destroyed$.next('')
     this.destroyed$.complete()
