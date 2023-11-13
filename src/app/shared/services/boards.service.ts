@@ -34,8 +34,10 @@ export class BoardsService {
     );
   }
 
-  getBoard(id: string) {
-    return this.http.get(`${this.fbDbUrl}/boards/${id}.json`)
+  getBoard(id: string): Observable<Board> {
+    return this.http.get(`${this.fbDbUrl}/boards/${id}.json`).pipe(
+      map(board => ({...board, id: id}))
+    ) as Observable<Board> 
   }
 
   postBoard(board: Board): Observable<fbResponseOfBoards> {

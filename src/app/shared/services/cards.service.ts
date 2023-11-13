@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   Observable,
+  filter,
   map,
+  tap,
 } from 'rxjs';
 
 @Injectable()
@@ -31,8 +33,17 @@ export class CardsService {
     );
   }
 
-  getCard(id: string) {
-    return this.http.get(`${this.fbDbUrl}/cards/${id}.json`)
+  getCardById(id: string): Observable<Card>  {
+    return this.http.get(`${this.fbDbUrl}/cards/${id}.json`) as Observable<Card>
+  }
+
+  getCardByBoardId(boardId: string): Observable<Card[]> {
+    return this.http.get(`${this.fbDbUrl}/cards.json`).pipe(
+      map((cards) => {
+        const allCard: Card[] = Object.keys(cards).map(cardId => ({...cards[cardId as keyof typeof cards], id: cardId })) as Card[]
+        return allCard.filter(card => card.boardId === boardId)
+      })
+    )
   }
 
   postCard(card: Card): Observable<fbResponseOfCards> {
