@@ -49,6 +49,10 @@ export class CardsService {
   postCard(card: Card): Observable<fbResponseOfCards> {
     return this.http.post(`${this.fbDbUrl}/cards.json`, card) as  Observable<fbResponseOfCards>
   }
+
+  deleteCardById(id: string): Observable<fbResponseOfCards>{
+    return this.http.delete(`${this.fbDbUrl}/cards/${id}.json`) as  Observable<fbResponseOfCards>
+  }
 }
 
 

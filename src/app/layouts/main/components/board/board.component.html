@@ -1,1 +1,11 @@
-<p>board works!</p>
+<div class="container">
+  <div class="status">
+    <div *ngFor="let card of cardFromBoard" class="card-container">
+      <app-card [card]="card" (deletedCard)="onDeletedCard()"></app-card>
+    </div>
+  </div>
+  <div class="status">
+    
+  </div>
+  
+</div>

@@ -24,6 +24,8 @@ import { CreateCardComponent } from './layouts/main/components/create-card/creat
 import { CardsService } from './shared/services/cards.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
+import { CardComponent } from './layouts/main/components/card/card.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { MatListModule } from '@angular/material/list';
     CreateBoardComponent,
     BoardComponent,
     PageNotFoundComponent,
-    CreateCardComponent
+    CreateCardComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { MatListModule } from '@angular/material/list';
     MatMenuModule,
     MatDialogModule,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    MatCardModule
   ],
   providers: [
     AuthService,

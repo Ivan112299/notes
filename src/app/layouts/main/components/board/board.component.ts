@@ -20,23 +20,29 @@ export class BoardComponent implements OnInit {
     private cardsService: CardsService,
   ) {}
 
-  ngOnInit(){
+  ngOnInit() {
+    this.getCards()
+  }
+
+  getCards(){
     this.router.params
-      .pipe(mergeMap((idFromRoute) => {
-        const id = idFromRoute['id']
-        return  this.boardsService.getBoard(id)
-      }))
-      .pipe(mergeMap((board) => {
-        this.currentBoard = board
-        if(!board?.id) return from([]);
-        return this.cardsService.getCardByBoardId(board.id)
-      }))
-      .subscribe(cards => {
-        console.log('cards', cards)
-        this.cardFromBoard = cards
-      })
-    
-      
+    .pipe(mergeMap((idFromRoute) => {
+      const id = idFromRoute['id']
+      return this.boardsService.getBoard(id)
+    }))
+    .pipe(mergeMap((board) => {
+      this.currentBoard = board
+      if (!board?.id) return from([]);
+      return this.cardsService.getCardByBoardId(board.id)
+    }))
+    .subscribe(cards => {
+      console.log('cards', cards)
+      this.cardFromBoard = cards
+    })
+  }
+
+  onDeletedCard(){
+    this.getCards()
   }
 
 }
