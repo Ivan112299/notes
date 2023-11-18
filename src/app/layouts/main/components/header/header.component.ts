@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Board, BoardsService } from 'src/app/shared/services/boards.service';
 import { CreateBoardComponent } from '../create-board/create-board.component';
@@ -15,7 +15,7 @@ import { CreateCardComponent } from '../create-card/create-card.component';
 export class HeaderComponent implements OnInit {
 
   boards: Board[] = [];
-  activeBoardName: string  = 'Доска не выбрана';
+  activeBoardName: string = 'Доска не выбрана';
 
   @ViewChild('menuCheckout')
   menuCheckout!: any
@@ -25,11 +25,23 @@ export class HeaderComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private route: Router,
+    private activatedRouter: ActivatedRoute,
     private boardsServise: BoardsService,
     public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
+    const currentBoardIdFromLocalStorage = localStorage.getItem('activeBoardId')
+
+    if (currentBoardIdFromLocalStorage) {
+      const boardId = JSON.parse(currentBoardIdFromLocalStorage)
+      this.boardsServise.getBoard(boardId)
+        .subscribe(board => {
+          console.log('board', board)
+          this.activeBoardName = board.name
+        })
+    }
+
     this.boardsServise.getBoards().subscribe((boards) => {
       this.boards = boards
     })

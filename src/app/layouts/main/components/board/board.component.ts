@@ -28,6 +28,10 @@ export class BoardComponent implements OnInit {
     this.router.params
     .pipe(mergeMap((idFromRoute) => {
       const id = idFromRoute['id']
+
+      // сохраняем id активной доски в localStorage, что бы потом не перезапрашивать, костыльно
+      localStorage.setItem('activeBoardId', JSON.stringify(idFromRoute['id']));
+
       return this.boardsService.getBoard(id)
     }))
     .pipe(mergeMap((board) => {
