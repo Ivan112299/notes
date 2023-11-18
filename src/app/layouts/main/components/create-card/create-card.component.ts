@@ -60,6 +60,4 @@ export class CreateCardComponent implements OnInit {
     this.destroyed$.next('')
     this.destroyed$.complete()
   }
-
-
 }
