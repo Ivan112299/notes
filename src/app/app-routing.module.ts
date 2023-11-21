@@ -5,6 +5,7 @@ import { RegistrationComponent } from './layouts/auth/components/registration/re
 import { MainComponent } from './layouts/main/components/main/main.component';
 import { PageNotFoundComponent } from './layouts/main/components/page-not-found/page-not-found.component';
 import { BoardComponent } from './layouts/main/components/board/board.component';
+import { canActivate } from './shared/services/auth.guards';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
     path: 'registration', component: RegistrationComponent
   },
   {
-    path: 'main', component: MainComponent, children: [
+    path: 'main', component: MainComponent, canActivate: [canActivate], children: [
       {
         path: ':id', component: BoardComponent
       }

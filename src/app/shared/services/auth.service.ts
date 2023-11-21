@@ -1,7 +1,9 @@
+import { AuthStore } from './../../store/auth.store';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, ObservableInput, Subject, catchError, tap, throwError } from 'rxjs';
 import { User } from '../../layouts/auth/models/user';
+import { FbCurrenUserData } from 'src/app/store/auth.store';
 
 @Injectable()
 export class AuthService {
@@ -25,14 +27,19 @@ export class AuthService {
   }
 
   constructor(
-    private http: HttpClient
-    ) {}
+    private http: HttpClient,
+    private authStore: AuthStore
+  ) {}
 
   login(user: User): Observable<any> {
     user.returnSecureToken = true;
     return this.http.post(`${this.authEndpoint}?key=${this.apiKey}`, user)
       .pipe(
-        tap(this.setToken),
+        tap((authData) => {
+          const userId = (authData as FbCurrenUserData).localId
+          this.authStore.setCurrentUserId(userId)
+          this.setToken(authData as FbCurrenUserData)
+        }),
         catchError(this.handleError.bind(this))    // обрабатываем ошибку (передаем respons в функцию) (байндим this  - изучить это)
       )
   }
@@ -41,7 +48,11 @@ export class AuthService {
     user.returnSecureToken = true;
     return this.http.post(`${this.sighupEndpoint}?key=${this.apiKey}`, user)
       .pipe(
-        tap(this.setToken),
+        tap((authData) => { 
+          const userId = (authData as FbCurrenUserData).localId
+          this.authStore.setCurrentUserId(userId)
+          this.setToken(authData as FbCurrenUserData) 
+        }),
         catchError(this.handleError.bind(this))    // обрабатываем ошибку (передаем respons в функцию) (байндим this  - изучить это)
       )
   }
@@ -51,7 +62,6 @@ export class AuthService {
   }
 
   isAuth() {
-    console.log('Авторизован? - ', !!this.token)
     return !!this.token
   }
 
@@ -73,12 +83,12 @@ export class AuthService {
     return throwError(() => new Error())
   }
 
-  private setToken(response: any | null) {
+  private setToken(response: FbCurrenUserData | null) {
     if (response) {
       // получаем дату когда протухнет токен
       const expDate = new Date(new Date().getTime() + Number(response.expiresIn) * 1000)
-
       localStorage.setItem('fb-token', response.idToken)
+      localStorage.setItem('fb-current-user', response.localId)
       localStorage.setItem('fb-token-exp', expDate.toString())
     } else {
       localStorage.clear()

@@ -1,9 +1,9 @@
 import { BoardsService } from './../shared/services/boards.service';
 import { Injectable } from '@angular/core';
 import { Board } from '../shared/services/boards.service';
-import { action, computed, observable } from 'mobx-angular';
-import { makeAutoObservable, runInAction } from 'mobx';
-import { pipe, take, takeUntil } from 'rxjs';
+import { action, observable } from 'mobx-angular';
+import { makeAutoObservable } from 'mobx';
+import { take } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class BoardsStore {
@@ -17,7 +17,7 @@ export class BoardsStore {
       boards: observable,
       activeBoard: observable,
       setBoards: action,
-      // setActiveBoard: action,
+      setActiveBoard: action,
 
     })
     this.localStorageSync()

@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Subject, take, takeUntil } from 'rxjs';
 import { Board, BoardsService } from 'src/app/shared/services/boards.service';
+import { AuthStore } from 'src/app/store/auth.store';
 import { BoardsStore } from 'src/app/store/boards.store';
 
 @Component({
@@ -22,25 +23,26 @@ export class CreateBoardComponent implements OnDestroy {
   constructor(
     private boardsService: BoardsService,
     private fb: FormBuilder,
-    private boardsStore: BoardsStore
-  ){}
+    private boardsStore: BoardsStore,
+    private authStore: AuthStore
+  ) {}
 
-  onClickCreateBoard(){
+  onClickCreateBoard() {
     this.creating = true;
-    if(!this.createBoardForm?.value) return;
-    this.boardsService.postBoard(this.createBoardForm.value as Board)
-    .pipe(take(1), takeUntil(this.destroyed$))
-    .subscribe({
-      next: () => {
-        this.createBoardForm.reset()
-        this.creating = false;
-        this.boardsStore.setBoards()
-      },
-      error: (err) => {
-        this.creating = false;
-        console.error('Ошибка создания доски', err) // TODO: заменить на алерт
-      }
-    })
+    if (!this.createBoardForm?.value) return;
+    this.boardsService.postBoard({ owner: this.authStore.currentUserId, ...this.createBoardForm.value as Board })
+      .pipe(take(1), takeUntil(this.destroyed$))
+      .subscribe({
+        next: () => {
+          this.createBoardForm.reset()
+          this.creating = false;
+          this.boardsStore.setBoards()
+        },
+        error: (err) => {
+          this.creating = false;
+          console.error('Ошибка создания доски', err) // TODO: заменить на алерт
+        }
+      })
   }
 
   ngOnDestroy(): void {

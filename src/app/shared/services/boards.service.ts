@@ -1,3 +1,4 @@
+import { AuthStore } from 'src/app/store/auth.store';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
@@ -15,13 +16,13 @@ export class BoardsService {
 
   fbDbUrl = 'https://notes-bc21d-default-rtdb.firebaseio.com';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authStore: AuthStore) {}
 
   getBoards(): Observable<Board[]> {
     return this.http.get(`${this.fbDbUrl}/boards.json`).pipe(
       map((boards: any) => {
         const boardsData = Object.keys(boards);
-        return boardsData.map((id) => {
+        const allBoards = boardsData.map((id) => {
           const currentBoard = boards[id as keyof typeof boards] as Board;
           return {
             id,
@@ -30,14 +31,16 @@ export class BoardsService {
             statuses: currentBoard.statuses,
           };
         });
+        // возвращаем только доски текущего залогиненного юзера
+        return allBoards.filter(board => board.owner === this.authStore.currentUserId)
       })
     );
   }
 
   getBoard(id: string): Observable<Board> {
     return this.http.get(`${this.fbDbUrl}/boards/${id}.json`).pipe(
-      map(board => ({...board, id: id}))
-    ) as Observable<Board> 
+      map(board => ({ ...board, id: id }))
+    ) as Observable<Board>
   }
 
   postBoard(board: Board): Observable<fbResponseOfBoards> {
