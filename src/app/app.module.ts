@@ -26,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { CardComponent } from './layouts/main/components/card/card.component';
 import { MatCardModule } from '@angular/material/card';
+import { MobxAngularModule } from 'mobx-angular';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { MatCardModule } from '@angular/material/card';
     MatDialogModule,
     MatSelectModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MobxAngularModule
   ],
   providers: [
     AuthService,
@@ -64,3 +66,4 @@ import { MatCardModule } from '@angular/material/card';
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+

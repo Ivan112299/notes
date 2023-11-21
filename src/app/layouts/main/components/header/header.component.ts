@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { Board, BoardsService } from 'src/app/shared/services/boards.service';
 import { CreateBoardComponent } from '../create-board/create-board.component';
 import { CreateCardComponent } from '../create-card/create-card.component';
+import { BoardsStore } from 'src/app/store/boards.store';
+import { toJS } from 'mobx';
 
 @Component({
   selector: 'app-header',
@@ -25,26 +27,12 @@ export class HeaderComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private route: Router,
-    private activatedRouter: ActivatedRoute,
-    private boardsServise: BoardsService,
-    public dialog: MatDialog) {
-  }
+    public dialog: MatDialog,
+    public boardsStore: BoardsStore
+    ) {}
 
   ngOnInit(): void {
-    const currentBoardIdFromLocalStorage = localStorage.getItem('activeBoardId')
-
-    if (currentBoardIdFromLocalStorage) {
-      const boardId = JSON.parse(currentBoardIdFromLocalStorage)
-      this.boardsServise.getBoard(boardId)
-        .subscribe(board => {
-          console.log('board', board)
-          this.activeBoardName = board.name
-        })
-    }
-
-    this.boardsServise.getBoards().subscribe((boards) => {
-      this.boards = boards
-    })
+    this.boardsStore.setBoards()
   }
 
   openDialogCreateBoard() {
@@ -55,10 +43,10 @@ export class HeaderComponent implements OnInit {
     this.dialog.open(CreateCardComponent, { restoreFocus: false });
   }
 
-  onSelectedBoard(boardId: string | undefined, boardName: string) {
+  onSelectedBoard(boardId: string | undefined) {
     if (!boardId) return;
     this.route.navigate(['main', boardId])
-    this.activeBoardName = boardName
+    this.boardsStore.setActiveBoard(boardId)
   }
 
   onClickLogout() {
