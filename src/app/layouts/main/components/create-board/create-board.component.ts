@@ -1,7 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { Board, BoardsService } from 'src/app/shared/services/boards.service';
+import { BoardsStore } from 'src/app/store/boards.store';
 
 @Component({
   selector: 'app-create-board',
@@ -20,16 +21,20 @@ export class CreateBoardComponent implements OnDestroy {
 
   constructor(
     private boardsService: BoardsService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private boardsStore: BoardsStore
   ){}
 
   onClickCreateBoard(){
     this.creating = true;
     if(!this.createBoardForm?.value) return;
-    this.boardsService.postBoard(this.createBoardForm.value as Board).subscribe({
+    this.boardsService.postBoard(this.createBoardForm.value as Board)
+    .pipe(take(1), takeUntil(this.destroyed$))
+    .subscribe({
       next: () => {
         this.createBoardForm.reset()
         this.creating = false;
+        this.boardsStore.setBoards()
       },
       error: (err) => {
         this.creating = false;

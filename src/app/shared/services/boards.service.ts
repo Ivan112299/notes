@@ -5,7 +5,7 @@ import {
   map,
 } from 'rxjs';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class BoardsService {
   //   user: User | undefined;
   //   authEndpoint = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword'

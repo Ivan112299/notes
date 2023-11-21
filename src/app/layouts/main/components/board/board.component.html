@@ -1,11 +1,10 @@
-<div class="container">
+<div class="container" *mobxAutorun>
+  <span>Количество карточек: {{cardsStore.countCards}}</span>
   <div class="status">
-    <div *ngFor="let card of cardFromBoard" class="card-container">
-      <app-card [card]="card" (deletedCard)="onDeletedCard()"></app-card>
+    <div *ngFor="let card of cardsStore.cardsFromCurrentBoard" class="card-container">
+      <app-card [card]="card"></app-card>
     </div>
   </div>
   <div class="status">
-    
   </div>
-  
 </div>

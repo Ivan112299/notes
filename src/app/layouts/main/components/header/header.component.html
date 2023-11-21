@@ -9,18 +9,18 @@
       </mat-menu>
     </div>
 
-    <div class="header-item">
+    <div class="header-item" *mobxAutorun>
       <button mat-button [matMenuTriggerFor]="menuCheckout">
         Сменить доску
       </button>
       <mat-menu #menuCheckout="matMenu">
-        <button *ngFor="let board of boards" mat-menu-item
-          (click)="onSelectedBoard(board.id, board.name)">{{board.name}}</button>
+        <button *ngFor="let board of boardsStore.boards" mat-menu-item
+          (click)="onSelectedBoard(board.id)">{{board.name}}</button>
       </mat-menu>
     </div>
 
-    <div class="header-item">
-      <p>Текущая доска:</p><span>{{activeBoardName}}</span>
+    <div class="header-item" *mobxAutorun>
+      <p>Текущая доска:</p><span>{{boardsStore.activeBoard?.name || 'Доска не выбрана'}}</span>
     </div>
 
   </div>
