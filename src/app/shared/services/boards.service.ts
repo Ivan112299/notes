@@ -46,6 +46,26 @@ export class BoardsService {
   postBoard(board: Board): Observable<fbResponseOfBoards> {
     return this.http.post(`${this.fbDbUrl}/boards.json`, board) as Observable<fbResponseOfBoards>
   }
+
+  putBoard(board: Board, id: string): Observable<fbResponseOfBoards> {
+    return this.http.put(`${this.fbDbUrl}/boards/${id}.json`, board) as Observable<fbResponseOfBoards>
+  }
+
+  getStatuses(): Observable<Status[]> {
+    return this.http.get(`${this.fbDbUrl}/statuses.json`).pipe(
+      map((statuses: any) => {
+        const statusesData = Object.keys(statuses);
+        const allstatuses = statusesData.map((id) => {
+          const currentStatus = statuses[id as keyof typeof statuses] as Status;
+          return {
+            id,
+            name: currentStatus.name
+          };
+        });
+        return allstatuses
+      })
+    );
+  }
 }
 
 
@@ -53,9 +73,14 @@ export type Board = {
   id?: string,
   name: string,
   owner?: string,
-  statuses?: any[],
+  statuses?: Status[],
 };
 
 export type fbResponseOfBoards = {
   [id: string]: Board;
 };
+
+export type Status = {
+  id: string,
+  name: string
+}

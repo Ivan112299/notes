@@ -1,0 +1,25 @@
+<div class="container" *mobxAutorun>
+  <form class="form-create-card" [formGroup]="editBoardForm">
+
+    <mat-form-field>
+      <mat-label>Название</mat-label>
+      <input matInput required formControlName="name" placeholder="Название доски">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Статусы на доске</mat-label>
+      <mat-select formControlName="statuses" multiple >
+        <mat-option *ngFor="let status of allStatuses" [value]="status">{{status}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- <button mat-icon-button color="primary" aria-label="Добавить статус" (click)="addStatusControl()">
+      <mat-icon>add</mat-icon>
+    </button> -->
+    
+
+  </form>
+  <button mat-flat-button color="primary" type="submit" [disabled]="editBoardForm.invalid || creating"
+    (click)="onClickSaveBoard()">Сохранить
+  </button>
+</div>

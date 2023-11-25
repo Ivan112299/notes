@@ -4,30 +4,26 @@
     <mat-form-field class="email">
       <mat-label>Логин</mat-label>
       <input matInput formControlName="email" placeholder="Введите логин заданный при регистрации">
+      <mat-hint *ngIf="authForm.controls['email']?.errors?.['required'] && authForm?.controls?.['email']?.touched">Email
+        обязательное поле</mat-hint>
+      <mat-hint *ngIf="authForm.controls['email']?.errors?.['email'] && authForm.controls?.['email']?.touched">
+        Некорректный Email</mat-hint>
     </mat-form-field>
 
     <mat-form-field class="password">
       <mat-label>Пароль</mat-label>
-      <input matInput formControlName="password" placeholder="Введите Ваш пароль">
+      <input matInput formControlName="password" placeholder="Введите Ваш пароль" [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Скрыть пароль'"
+        [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-hint
+        *ngIf="authForm.controls['password']?.errors?.['required'] && authForm?.controls?.['password']?.touched">Пароль
+        обязательное поле</mat-hint>
     </mat-form-field>
   </form>
-  <button 
-    mat-flat-button 
-    color="primary" 
-    type="submit" 
-    [disabled]="authForm.invalid || authorized"
-    (click)="onClickAuth()">Вход
+  <button class="button-submit" mat-flat-button color="primary" type="submit"
+    [disabled]="authForm.invalid || authorized" (click)="onClickAuth()">Вход
   </button>
-  <div class="error">
-    <small
-      *ngIf="authForm.controls['email']?.errors?.['required'] && authForm?.controls?.['email']?.touched">
-     Email обязательное поле</small>
-    <small
-      *ngIf="authForm.controls['password']?.errors?.['required'] && authForm?.controls?.['password']?.touched">
-     Пароль обязательное поле</small>
-    <small
-     *ngIf="authForm.controls['email']?.errors?.['email'] && authForm.controls?.['email']?.touched">
-    Некорректный Email</small>
-  </div>
-  
+
 </div>

@@ -30,7 +30,11 @@ export class CreateBoardComponent implements OnDestroy {
   onClickCreateBoard() {
     this.creating = true;
     if (!this.createBoardForm?.value) return;
-    this.boardsService.postBoard({ owner: this.authStore.currentUserId, ...this.createBoardForm.value as Board })
+    this.boardsService.postBoard({ 
+      owner: this.authStore.currentUserId, 
+      statuses: [this.boardsStore.statuses.find(status => status.name === 'Default')!], 
+      ...this.createBoardForm.value as Board 
+    })
       .pipe(take(1), takeUntil(this.destroyed$))
       .subscribe({
         next: () => {

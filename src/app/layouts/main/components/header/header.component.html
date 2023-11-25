@@ -21,6 +21,9 @@
 
     <div class="header-item" *mobxAutorun>
       <p>Текущая доска:</p><span>{{boardsStore.activeBoard?.name || 'Доска не выбрана'}}</span>
+      <button mat-icon-button color="primary" [disabled]="!boardsStore.activeBoard?.name" (click)="onClickSettingsBoard()">
+        <mat-icon>settings</mat-icon>
+      </button>
     </div>
 
   </div>

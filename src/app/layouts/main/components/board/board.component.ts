@@ -27,4 +27,8 @@ export class BoardComponent implements OnInit {
       this.cardsStore.setCardsFromCurrentBoard(this.currentBoardId)
     })
   }
+
+  onClickAddCard(){
+    console.log('onclickaddcard')
+  }
 }

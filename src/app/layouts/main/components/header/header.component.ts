@@ -8,6 +8,7 @@ import { CreateBoardComponent } from '../create-board/create-board.component';
 import { CreateCardComponent } from '../create-card/create-card.component';
 import { BoardsStore } from 'src/app/store/boards.store';
 import { toJS } from 'mobx';
+import { BoardManageComponent } from '../board-manage/board-manage.component';
 
 @Component({
   selector: 'app-header',
@@ -52,5 +53,9 @@ export class HeaderComponent implements OnInit {
   onClickLogout() {
     this.auth.logout()
     this.route.navigate(['auth'])
+  }
+
+  onClickSettingsBoard(){
+    this.dialog.open(BoardManageComponent, { restoreFocus: false });
   }
 }

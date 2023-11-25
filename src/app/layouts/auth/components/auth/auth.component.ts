@@ -15,6 +15,7 @@ export class AuthComponent implements OnDestroy {
 
   nonAuth: Boolean | undefined;
   authorized: Boolean = false;
+  hide = true
 
   authForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],

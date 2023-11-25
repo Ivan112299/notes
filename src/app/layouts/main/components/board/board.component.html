@@ -4,6 +4,16 @@
     <div *ngFor="let card of cardsStore.cardsFromCurrentBoard" class="card-container">
       <app-card [card]="card"></app-card>
     </div>
+    <div class="card-container hide">
+      <mat-card class="card">
+        <mat-card-header>
+          <mat-card-subtitle>Добавить карточку</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <button mat-button (click)="onClickAddCard()">Добавить</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
   <div class="status">
   </div>

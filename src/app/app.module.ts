@@ -27,6 +27,9 @@ import { MatListModule } from '@angular/material/list';
 import { CardComponent } from './layouts/main/components/card/card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MobxAngularModule } from 'mobx-angular';
+import { BoardManageComponent } from './layouts/main/components/board-manage/board-manage.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,8 @@ import { MobxAngularModule } from 'mobx-angular';
     BoardComponent,
     PageNotFoundComponent,
     CreateCardComponent,
-    CardComponent
+    CardComponent,
+    BoardManageComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,9 @@ import { MobxAngularModule } from 'mobx-angular';
     MatSelectModule,
     MatListModule,
     MatCardModule,
-    MobxAngularModule
+    MobxAngularModule,
+    MatIconModule,
+    MatSidenavModule
   ],
   providers: [
     AuthService,
