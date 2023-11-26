@@ -1,9 +1,12 @@
+
 <div class="container" *mobxAutorun>
   <span>Количество карточек: {{cardsStore.countCards}}</span>
-  <div class="status">
-    <div *ngFor="let card of cardsStore.cardsFromCurrentBoard" class="card-container">
-      <app-card [card]="card"></app-card>
-    </div>
+  <div class="statuses">
+    <div class="status" *ngFor="let status of boardsStore.activeBoard?.statuses">
+      <span>{{status.name}}</span>
+      <div *ngFor="let card of cardsStore.mappedCardFromCurrentBoard[status.name]" class="card-container">
+        <app-card [card]="card"></app-card>
+    </div>  
     <div class="card-container hide">
       <mat-card class="card">
         <mat-card-header>
@@ -13,8 +16,7 @@
           <button mat-button (click)="onClickAddCard()">Добавить</button>
         </mat-card-actions>
       </mat-card>
-    </div>
+    </div>  
   </div>
-  <div class="status">
-  </div>
+</div>
 </div>

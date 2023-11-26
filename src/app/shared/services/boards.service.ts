@@ -66,8 +66,11 @@ export class BoardsService {
       })
     );
   }
-}
 
+  getStatusesFromBoard(boardId: string): Observable<Status[]>{
+    return this.http.get(`${this.fbDbUrl}/boards/${boardId}/statuses.json`) as Observable<Status[]>   
+  }
+}
 
 export type Board = {
   id?: string,

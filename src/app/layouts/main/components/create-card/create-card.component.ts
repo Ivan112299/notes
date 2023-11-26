@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Subject, take, takeUntil } from 'rxjs';
-import { Board, BoardsService } from 'src/app/shared/services/boards.service';
+import { Board, BoardsService, Status } from 'src/app/shared/services/boards.service';
 import { Card, CardsService } from 'src/app/shared/services/cards.service';
+import { BoardsStore } from 'src/app/store/boards.store';
 import { CardsStore } from 'src/app/store/cards.store';
 
 @Component({
@@ -16,18 +17,22 @@ export class CreateCardComponent implements OnInit {
 
   creating = false;
   boards: Board[] = [];
+  statusesFromBoard: Status[] = []
 
   createCardForm = this.fb.group({
     name: '',
     content: '',
-    boardId: ''
+    boardId: '',
+    statusId: ['']
   });
 
   constructor(
     private fb: FormBuilder,
     private cardService: CardsService,
     private boardsService: BoardsService,
-    public cardsStore: CardsStore
+    public cardsStore: CardsStore,
+    public boardsStore: BoardsStore,
+
   ){}
 
   ngOnInit(): void {
@@ -58,6 +63,14 @@ export class CreateCardComponent implements OnInit {
         this.creating = false;
         console.error('Ошибка создания карточки', err)      // TODO: заменить на алерт
       }
+    })
+  }
+
+  changeBoard(){
+    this.boardsService.getStatusesFromBoard(this.createCardForm.controls['boardId'].value!)
+    .pipe(take(1), takeUntil(this.destroyed$))
+    .subscribe(statuses => {
+      this.statusesFromBoard = statuses
     })
   }
 

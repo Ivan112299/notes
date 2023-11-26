@@ -26,7 +26,8 @@ export class CardsService {
             content: currentCard.content,
             author: currentCard.author,
             tags: currentCard.tags,
-            boardId: currentCard.boardId
+            boardId: currentCard.boardId,
+            statusId: currentCard.statusId
           };
         });
       })
@@ -62,7 +63,8 @@ export type Card = {
   content?: string,
   author?: string,
   tags?: Tag[],
-  boardId: string
+  boardId: string,
+  statusId: string
 };
 
 export type fbResponseOfCards = {

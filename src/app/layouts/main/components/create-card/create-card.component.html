@@ -9,8 +9,14 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>На какой доске создать карточку?</mat-label>
-    <mat-select required formControlName="boardId">
+    <mat-select required formControlName="boardId" (selectionChange)="changeBoard()"> 
       <mat-option *ngFor="let board of boards" [value]="board.id">{{board.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Какой статус карточки?</mat-label>
+    <mat-select formControlName="statusId" required >
+      <mat-option *ngFor="let status of statusesFromBoard" [value]="status.id">{{status.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 </form>

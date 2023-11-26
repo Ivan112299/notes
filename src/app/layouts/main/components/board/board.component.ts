@@ -17,8 +17,9 @@ export class BoardComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
     public cardsStore: CardsStore,
+    public boardsStore: BoardsStore
   ) {
-    makeAutoObservable(this);
+    makeAutoObservable(this);     // забыл зачем, разобраться
   }
 
   ngOnInit() {
