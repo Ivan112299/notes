@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { makeAutoObservable } from 'mobx';
 import { BoardsStore } from 'src/app/store/boards.store';
-import { CardsStore } from 'src/app/store/cards.store';
 
 @Component({
   selector: 'app-board',
@@ -16,7 +15,6 @@ export class BoardComponent implements OnInit {
 
   constructor(
     private router: ActivatedRoute,
-    public cardsStore: CardsStore,
     public boardsStore: BoardsStore
   ) {
     makeAutoObservable(this);     // забыл зачем, разобраться
@@ -25,7 +23,7 @@ export class BoardComponent implements OnInit {
   ngOnInit() {
     this.router.params.subscribe(params => {
       this.currentBoardId = params['id']
-      this.cardsStore.setCardsFromCurrentBoard(this.currentBoardId)
+      this.boardsStore.setCardsFromCurrentBoard(this.currentBoardId)
     })
   }
 

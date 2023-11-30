@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Subject, take, takeUntil } from 'rxjs';
 import { Board, BoardsService } from 'src/app/shared/services/boards.service';
@@ -10,7 +10,7 @@ import { BoardsStore } from 'src/app/store/boards.store';
   templateUrl: './create-board.component.html',
   styleUrls: ['./create-board.component.less']
 })
-export class CreateBoardComponent implements OnDestroy {
+export class CreateBoardComponent implements OnDestroy, OnInit {
 
   readonly destroyed$ = new Subject();
 
@@ -26,6 +26,9 @@ export class CreateBoardComponent implements OnDestroy {
     private boardsStore: BoardsStore,
     private authStore: AuthStore
   ) {}
+  ngOnInit(): void {
+    this.boardsStore.setStatuses()
+  }
 
   onClickCreateBoard() {
     this.creating = true;

@@ -47,7 +47,7 @@ export class HeaderComponent implements OnInit {
   onSelectedBoard(boardId: string | undefined) {
     if (!boardId) return;
     this.route.navigate(['main', boardId])
-    this.boardsStore.setActiveBoard(boardId)
+    this.boardsStore.setActiveBoardId(boardId)
   }
 
   onClickLogout() {

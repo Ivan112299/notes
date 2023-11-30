@@ -4,7 +4,6 @@ import { Subject, take, takeUntil } from 'rxjs';
 import { Board, BoardsService, Status } from 'src/app/shared/services/boards.service';
 import { Card, CardsService } from 'src/app/shared/services/cards.service';
 import { BoardsStore } from 'src/app/store/boards.store';
-import { CardsStore } from 'src/app/store/cards.store';
 
 @Component({
   selector: 'app-create-card',
@@ -30,7 +29,6 @@ export class CreateCardComponent implements OnInit {
     private fb: FormBuilder,
     private cardService: CardsService,
     private boardsService: BoardsService,
-    public cardsStore: CardsStore,
     public boardsStore: BoardsStore,
 
   ){}
@@ -55,7 +53,7 @@ export class CreateCardComponent implements OnInit {
       next: () => {
         this.creating = false;
         if(this.createCardForm.value.boardId){
-          this.cardsStore.setCardsFromCurrentBoard(this.createCardForm.value.boardId)
+          this.boardsStore.setCardsFromCurrentBoard(this.createCardForm.value.boardId)
         }
         this.createCardForm.reset()
       },

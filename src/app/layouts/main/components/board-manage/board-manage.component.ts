@@ -1,8 +1,8 @@
-import { takeUntil, Subject, take } from 'rxjs';
-import { FormArray, FormBuilder, FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
 import { BoardsStore } from './../../../../store/boards.store';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Board, BoardsService, Status } from 'src/app/shared/services/boards.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Board } from 'src/app/shared/services/boards.service';
 
 @Component({
   selector: 'app-board-manage',
@@ -33,7 +33,7 @@ export class BoardManageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const currentBoardStatuses = this.boardsStore.activeBoard!.statuses!.map(st => st.name)!
+    const currentBoardStatuses = this.boardsStore.activeBoard?.statuses?.map(st => st.name)!
     this.editBoardForm.controls['statuses'].patchValue(currentBoardStatuses)
   }
 

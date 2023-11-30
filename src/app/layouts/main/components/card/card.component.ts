@@ -1,6 +1,6 @@
-import { CardsStore } from 'src/app/store/cards.store';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Card, CardsService } from 'src/app/shared/services/cards.service';
+import { BoardsStore } from 'src/app/store/boards.store';
 
 @Component({
   selector: 'app-card',
@@ -17,7 +17,7 @@ export class CardComponent {
 
   constructor(
     private cardsService: CardsService,
-    private cardsStore: CardsStore){}
+    private boardssStore: BoardsStore){}
 
   onClickDeleteCard(cardId: string | undefined){
     if(!cardId) return;
@@ -25,7 +25,7 @@ export class CardComponent {
     this.cardsService.deleteCardById(cardId).subscribe({
       next: () => {
         this.deletedCard.emit()
-        this.cardsStore.setCardsFromCurrentBoard(this.card?.boardId)
+        this.boardssStore.setCardsFromCurrentBoard(this.card?.boardId)
       },
       error: (error) => {
         console.error('Ошибка удаления карточки', error)

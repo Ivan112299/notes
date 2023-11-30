@@ -1,8 +1,5 @@
 import { BoardsService } from 'src/app/shared/services/boards.service';
 import { Component } from '@angular/core';
-import { BoardsStore } from './store/boards.store';
-import { CardsStore } from './store/cards.store';
-import { injectStores } from '@mobx-devtools/tools';
 import { CardsService } from './shared/services/cards.service';
 
 @Component({

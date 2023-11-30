@@ -12,12 +12,6 @@
         <mat-option *ngFor="let status of allStatuses" [value]="status">{{status}}</mat-option>
       </mat-select>
     </mat-form-field>
-
-    <!-- <button mat-icon-button color="primary" aria-label="Добавить статус" (click)="addStatusControl()">
-      <mat-icon>add</mat-icon>
-    </button> -->
-    
-
   </form>
   <button mat-flat-button color="primary" type="submit" [disabled]="editBoardForm.invalid || creating"
     (click)="onClickSaveBoard()">Сохранить

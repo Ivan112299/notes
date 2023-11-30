@@ -1,10 +1,10 @@
 
 <div class="container" *mobxAutorun>
-  <span>Количество карточек: {{cardsStore.countCards}}</span>
+  <span>Количество карточек: {{boardsStore.countCards}}</span>
   <div class="statuses">
-    <div class="status" *ngFor="let status of boardsStore.activeBoard?.statuses">
+    <div class="status" *ngFor="let status of boardsStore.statusesFromCurrentBoard">
       <span>{{status.name}}</span>
-      <div *ngFor="let card of cardsStore.mappedCardFromCurrentBoard[status.name]" class="card-container">
+      <div *ngFor="let card of boardsStore.mappedCardFromCurrentBoard[status.name]" class="card-container">
         <app-card [card]="card"></app-card>
     </div>  
     <div class="card-container hide">
