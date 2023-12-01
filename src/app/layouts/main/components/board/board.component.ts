@@ -32,6 +32,7 @@ export class BoardComponent implements OnInit {
     this.dialog.open(CreateCardComponent, {
       data: {
         boardId: this.currentBoardId,
+        mode: 'add',
         statusName
       },
       restoreFocus: false

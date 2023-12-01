@@ -8,13 +8,13 @@
     <textarea matInput formControlName="content" placeholder="Описание"></textarea>
   </mat-form-field>
   <mat-form-field>
-    <mat-label>На какой доске создать карточку?</mat-label>
+    <mat-label>Доска для карточки</mat-label>
     <mat-select required formControlName="boardId" (selectionChange)="changeBoard()"> 
       <mat-option *ngFor="let board of boards" [value]="board.id">{{board.name}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <mat-label>Какой статус карточки?</mat-label>
+    <mat-label>Статус карточки</mat-label>
     <mat-select formControlName="statusId" required >
       <mat-option *ngFor="let status of statusesFromBoard" [value]="status.id">{{status.name}}</mat-option>
     </mat-select>
@@ -24,5 +24,5 @@
   mat-flat-button color="primary" 
   type="submit" 
   [disabled]="createCardForm.invalid || creating"
-  (click)="onClickCreateCard()">Создать карточку
+  (click)="onClickSave()">Сохранить
 </button>
