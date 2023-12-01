@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { makeAutoObservable } from 'mobx';
 import { BoardsStore } from 'src/app/store/boards.store';
+import { CreateCardComponent } from '../create-card/create-card.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-board',
@@ -15,10 +16,9 @@ export class BoardComponent implements OnInit {
 
   constructor(
     private router: ActivatedRoute,
-    public boardsStore: BoardsStore
-  ) {
-    makeAutoObservable(this);     // забыл зачем, разобраться
-  }
+    public boardsStore: BoardsStore,
+    public dialog: MatDialog,
+  ) {}
 
   ngOnInit() {
     this.router.params.subscribe(params => {
@@ -27,7 +27,14 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  onClickAddCard(){
-    console.log('onclickaddcard')
+  onClickAddCard(targetElement: Element) {
+    const statusName = targetElement.textContent
+    this.dialog.open(CreateCardComponent, {
+      data: {
+        boardId: this.currentBoardId,
+        statusName
+      },
+      restoreFocus: false
+    });
   }
 }
