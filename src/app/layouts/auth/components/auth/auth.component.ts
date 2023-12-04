@@ -11,7 +11,7 @@ import { take, takeUntil, Subject } from 'rxjs';
 })
 export class AuthComponent implements OnDestroy {
 
-  readonly destroyed$ = new Subject();
+  readonly destroyed$ = new Subject<void>();
 
   nonAuth: Boolean | undefined;
   authorized: Boolean = false;
@@ -44,7 +44,7 @@ export class AuthComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroyed$.next('')
+    this.destroyed$.next()
     this.destroyed$.complete()
   }
 }

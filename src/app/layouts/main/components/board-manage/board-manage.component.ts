@@ -20,7 +20,7 @@ export class BoardManageComponent implements OnInit, OnDestroy {
   allStatuses = this.boardsStore.statuses.map(status => status.name)
   statusesFromBoard = this.boardsStore.activeBoard?.statuses
   creating = false
-  destroyed$ = new Subject()
+  destroyed$ = new Subject<void>()
 
   constructor(
     public boardsStore: BoardsStore,
@@ -28,7 +28,7 @@ export class BoardManageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnDestroy(): void {
-    this.destroyed$.next('')
+    this.destroyed$.next()
     this.destroyed$.complete()
   }
 

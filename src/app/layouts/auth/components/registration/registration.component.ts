@@ -11,7 +11,7 @@ import { Subject, take, takeUntil } from 'rxjs';
 })
 export class RegistrationComponent {
 
-  readonly destroyed$ = new Subject()
+  readonly destroyed$ = new Subject<void>()
 
   nonAuth: Boolean | undefined;
   authorized: Boolean = false;
@@ -44,7 +44,7 @@ export class RegistrationComponent {
   }
 
   ngOnDestroy(): void {
-    this.destroyed$.next('')
+    this.destroyed$.next()
     this.destroyed$.complete()
   }
 }

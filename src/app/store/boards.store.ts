@@ -38,6 +38,7 @@ export class BoardsStore {
       countCards: computed,
       statusesFromCurrentBoard: computed,
       mappedCardFromCurrentBoard: computed,
+      statusesNameFromCurrentBoard: computed,
     })
     this.setStatuses()
     this.localStorageSync()
@@ -142,6 +143,10 @@ export class BoardsStore {
     } else {
       return []
     }
+  }
+
+  get statusesNameFromCurrentBoard(){
+    return this.statusesFromCurrentBoard.map(st => st.name)
   }
 
   get countCards() {

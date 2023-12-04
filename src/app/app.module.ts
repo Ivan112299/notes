@@ -30,6 +30,7 @@ import { MobxAngularModule } from 'mobx-angular';
 import { BoardManageComponent } from './layouts/main/components/board-manage/board-manage.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatCardModule,
     MobxAngularModule,
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    CdkDropList, 
+    CdkDrag,
+    CdkDropListGroup
   ],
   providers: [
     AuthService,

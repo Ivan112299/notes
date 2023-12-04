@@ -14,7 +14,7 @@ import { BoardsStore } from 'src/app/store/boards.store';
 export class CreateCardComponent implements OnInit {
 
 
-  readonly destroyed$ = new Subject();
+  readonly destroyed$ = new Subject<void>();
 
   creating = false;
   boards: Board[] = [];
@@ -123,7 +123,7 @@ export class CreateCardComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.destroyed$.next('')
+    this.destroyed$.next()
     this.destroyed$.complete()
   }
 

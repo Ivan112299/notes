@@ -12,7 +12,7 @@ import { BoardsStore } from 'src/app/store/boards.store';
 })
 export class CreateBoardComponent implements OnDestroy, OnInit {
 
-  readonly destroyed$ = new Subject();
+  readonly destroyed$ = new Subject<void>();
 
   creating = false;
 
@@ -53,7 +53,7 @@ export class CreateBoardComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    this.destroyed$.next('')
+    this.destroyed$.next()
     this.destroyed$.complete()
   }
 
