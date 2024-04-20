@@ -1,5 +1,28 @@
 <div class="container" *mobxAutorun>
   <span>Количество карточек: {{boardsStore.countCards}}</span>
+  <br>
+  <div>Тестирование customBehaviourSubject</div>
+  <br>
+  <button style="width: 200px;" (click)="getValueBS()">Подписаться на BehSub</button>
+  <button style="width: 200px;" (click)="setValueBS()">Обновить значение BehSub</button>
+  <button style="width: 200px;" (click)="completeBS()">Завершить подписку BehSub</button>
+  <span>Текущее значение BS после подписки: {{currentValueBehSub}}</span>
+  <br>
+  <div>Тестирование customSubject</div>
+  <br>
+  <button style="width: 200px;" (click)="getValueS()">Подписаться на Sub</button>
+  <button style="width: 200px;" (click)="setValueS()">Обновить значение Sub</button>
+  <button style="width: 200px;" (click)="completeS()">Завершить подписку Sub</button>
+  <span>Текущее значение Sub после подписки: {{currentValueSub}}</span>
+  <br>
+  <div>Тестирование ReplaySubject</div>
+  <br>
+  <button style="width: 200px;" (click)="getValueRS()">Подписаться на RSub</button>
+  <button style="width: 200px;" (click)="setValueRS()">Обновить значение RSub</button>
+  <button style="width: 200px;" (click)="completeRS()">Завершить подписку RSub</button>
+  <span>Текущее значение ReplaySub после подписки: {{currentValueReplaySub}}</span>
+  <br>
+
 
   <div class="statuses drag-container" cdkDropListGroup>
 

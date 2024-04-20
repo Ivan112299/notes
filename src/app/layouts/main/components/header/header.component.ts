@@ -58,4 +58,8 @@ export class HeaderComponent implements OnInit {
   onClickSettingsBoard(){
     this.dialog.open(BoardManageComponent, { restoreFocus: false });
   }
+
+  goToTestComponent() {
+    this.route.navigate(['test'])
+  }
 }

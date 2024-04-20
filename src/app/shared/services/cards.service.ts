@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   Observable,
-  filter,
   map,
-  tap,
 } from 'rxjs';
 
 @Injectable()

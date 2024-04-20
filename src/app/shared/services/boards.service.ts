@@ -8,11 +8,11 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class BoardsService {
-  //   user: User | undefined;
-  //   authEndpoint = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword'
-  //   sighupEndpoint = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp'
-  //   apiKey = 'AIzaSyCDwLAOUJGo-FR_Tgv-HLeHO_Atm43OqB0'
-  //   public error$: Subject<string> = new Subject<string>()
+    // user: User | undefined;
+    // authEndpoint = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword'
+    // sighupEndpoint = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp'
+    // apiKey = 'AIzaSyCDwLAOUJGo-FR_Tgv-HLeHO_Atm43OqB0'
+    // public error$: Subject<string> = new Subject<string>()
 
   fbDbUrl = 'https://notes-bc21d-default-rtdb.firebaseio.com';
 

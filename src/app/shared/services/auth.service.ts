@@ -48,10 +48,10 @@ export class AuthService {
     user.returnSecureToken = true;
     return this.http.post(`${this.sighupEndpoint}?key=${this.apiKey}`, user)
       .pipe(
-        tap((authData) => { 
+        tap((authData) => {
           const userId = (authData as FbCurrenUserData).localId
           this.authStore.setCurrentUserId(userId)
-          this.setToken(authData as FbCurrenUserData) 
+          this.setToken(authData as FbCurrenUserData)
         }),
         catchError(this.handleError.bind(this))    // обрабатываем ошибку (передаем respons в функцию) (байндим this  - изучить это)
       )

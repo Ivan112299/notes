@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './shared/services/auth.service';
 import { MainComponent } from './layouts/main/components/main/main.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './layouts/main/components/header/header.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { BoardsService } from './shared/services/boards.service';
@@ -66,12 +66,13 @@ import { CdkDrag, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
     MatSidenavModule,
     CdkDropList, 
     CdkDrag,
-    CdkDropListGroup
+    CdkDropListGroup,
+    
   ],
   providers: [
     AuthService,
     BoardsService,
-    CardsService
+    CardsService,
   ],
   bootstrap: [AppComponent]
 })
