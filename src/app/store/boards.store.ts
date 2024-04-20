@@ -9,12 +9,11 @@ import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class BoardsStore {
-  activeBoardId = ''
-
+  activeBoardId = '';
 
   activeBoard: Board = {} as Board;
-  boards: Board[] = []
-  statuses: Status[] = []
+  boards: Board[] = [];
+  statuses: Status[] = [];
 
   cardsFromCurrentBoard: Card[] = [];
 
@@ -39,127 +38,128 @@ export class BoardsStore {
       statusesFromCurrentBoard: computed,
       mappedCardFromCurrentBoard: computed,
       statusesNameFromCurrentBoard: computed,
-    })
-    this.setStatuses()
-    this.localStorageSync()
+    });
+    this.setStatuses();
+    this.localStorageSync();
   }
 
   setActiveBoardId(id: string) {
-    console.count('setActiveBoardId')
-    this.activeBoardId = id
+    this.activeBoardId = id;
     localStorage.setItem('activeBoardId', JSON.stringify(id));
-    this.setActiveBoard(id)
-    this.setCardsFromCurrentBoard(id)
-
+    this.setActiveBoard(id);
+    this.setCardsFromCurrentBoard(id);
   }
 
   setActiveBoard(boardId: string) {
-    console.count('setActiveBoard')
+    console.count('setActiveBoard');
     if (boardId) {
-      this.boardsService.getBoard(boardId)
+      this.boardsService
+        .getBoard(boardId)
         .pipe(take(1))
-        .subscribe(board => {
+        .subscribe((board) => {
           runInAction(() => {
-            this.activeBoard = board
-            console.log('this.activeBoard', this.activeBoard)
-          })
-        })
+            this.activeBoard = board;
+            console.log('this.activeBoard', this.activeBoard);
+          });
+        });
     }
   }
 
   setBoards() {
-    console.count('setBoards')
-    this.boardsService.getBoards()
+    this.boardsService
+      .getBoards()
       .pipe(take(1))
-      .subscribe(boards => {
+      .subscribe((boards) => {
         runInAction(() => {
-          this.boards = boards
-        })
-
-      })
+          this.boards = boards;
+        });
+      });
   }
 
   setStatuses() {
-    console.count('setStatuses')
-    this.boardsService.getStatuses()
+    this.boardsService
+      .getStatuses()
       .pipe(take(1))
-      .subscribe(statuses => {
+      .subscribe((statuses) => {
         runInAction(() => {
-          this.statuses = statuses
-        })
-      })
+          this.statuses = statuses;
+        });
+      });
   }
 
   updateBoard(board: Board, id: string) {
-    console.count('updateBoard')
-    this.boardsService.putBoard(board, id)
+    this.boardsService
+      .putBoard(board, id)
       .pipe(take(1))
       .subscribe({
         next: () => {
-          let editedBoardIndex = this.boards.findIndex(board => board.id === id)
-          this.boards[editedBoardIndex] = board
+          let editedBoardIndex = this.boards.findIndex(
+            (board) => board.id === id
+          );
+          this.boards[editedBoardIndex] = board;
           runInAction(() => {
-            this.activeBoard = board
-          })
+            this.activeBoard = board;
+          });
           // this.setStatuses()                      // хоть статусы не обновляем но в ближайшее время надо добавить
           // console.log('доска обновлена')        // TODO сообщение пользователю
         },
-        error: (err => console.error(err))      // TODO сообщение пользователю
-      })
+        error: (err) => console.error(err), // TODO сообщение пользователю
+      });
   }
 
   setCardsFromCurrentBoard(currentBoardId?: string) {
-    console.count('setCardsFromCurrentBoard')
     if (!currentBoardId) return;
-    this.cardsService.getCardByBoardId(currentBoardId)
+    this.cardsService
+      .getCardByBoardId(currentBoardId)
       .pipe(take(1))
-      .subscribe(cards => {
+      .subscribe((cards) => {
         runInAction(() => {
-          this.cardsFromCurrentBoard = cards
-        })
-      })
+          this.cardsFromCurrentBoard = cards;
+        });
+      });
   }
 
   get mappedCardFromCurrentBoard() {
-    console.log('getter mappedCardFromCurrentBoard')
     if (this.activeBoard?.statuses) {
-      const mappedCards: { [status: string]: Card[] } = this.activeBoard.statuses.reduce((mappedCards, status) => {
-        const mappedSt = {
-          ...mappedCards,
-          [status.name]: this.cardsFromCurrentBoard.filter(card => card.statusId === status.id)
-        }
-        return mappedSt
-      }, {})
-      return mappedCards
+      const mappedCards: { [status: string]: Card[] } =
+        this.activeBoard.statuses.reduce((mappedCards, status) => {
+          const mappedSt = {
+            ...mappedCards,
+            [status.name]: this.cardsFromCurrentBoard.filter(
+              (card) => card.statusId === status.id
+            ),
+          };
+          return mappedSt;
+        }, {});
+      return mappedCards;
     } else {
-      return {} as { [status: string]: Card[] }
+      return {} as { [status: string]: Card[] };
     }
   }
 
   get statusesFromCurrentBoard() {
-    console.log('getter statusesFromCurrentBoard', this.activeBoard?.statuses)
     if (this.activeBoard?.statuses) {
-      return this.activeBoard.statuses
+      return this.activeBoard.statuses;
     } else {
-      return []
+      return [];
     }
   }
 
-  get statusesNameFromCurrentBoard(){
-    return this.statusesFromCurrentBoard.map(st => st.name)
+  get statusesNameFromCurrentBoard() {
+    return this.statusesFromCurrentBoard.map((st) => st.name);
   }
 
   get countCards() {
-    console.log('getter countCards', this.cardsFromCurrentBoard.length)
-    return this.cardsFromCurrentBoard.length
+    return this.cardsFromCurrentBoard.length;
   }
 
   private localStorageSync() {
-    const currentBoardIdFromLocalStorage = localStorage.getItem('activeBoardId')
+    const currentBoardIdFromLocalStorage =
+      localStorage.getItem('activeBoardId');
     if (currentBoardIdFromLocalStorage) {
-      const boardId = JSON.parse(currentBoardIdFromLocalStorage)
-      this.route.navigate(['main', boardId])
-      this.setActiveBoard(boardId)
+      const boardId = JSON.parse(currentBoardIdFromLocalStorage);
+      this.route.navigate(['main', boardId]);
+      this.setActiveBoard(boardId);
     }
   }
 }

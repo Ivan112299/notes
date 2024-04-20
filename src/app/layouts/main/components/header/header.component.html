@@ -1,6 +1,5 @@
 <div class="container">
   <div class="left-menu">
-
     <div class="header-item">
       <button mat-button [matMenuTriggerFor]="menuCreate">Создать</button>
       <mat-menu #menuCreate="matMenu">
@@ -14,28 +13,39 @@
         Сменить доску
       </button>
       <mat-menu #menuCheckout="matMenu">
-        <button *ngFor="let board of boardsStore.boards" mat-menu-item
-          (click)="onSelectedBoard(board.id)">{{board.name}}</button>
+        <button
+          *ngFor="let board of boardsStore.boards"
+          mat-menu-item
+          (click)="onSelectedBoard(board.id)"
+        >
+          {{ board.name }}
+        </button>
       </mat-menu>
     </div>
 
     <div class="header-item" *mobxAutorun>
-      <p>Текущая доска:</p><span>{{boardsStore.activeBoard.name || 'Доска не выбрана'}}</span>
-      <button mat-icon-button color="primary" [disabled]="!boardsStore.activeBoard.name" (click)="onClickSettingsBoard()">
+      <p>Текущая доска:</p>
+      <span>{{ boardsStore.activeBoard.name || "Доска не выбрана" }}</span>
+      <button
+        mat-icon-button
+        color="primary"
+        [disabled]="!boardsStore.activeBoard.name"
+        (click)="onClickSettingsBoard()"
+      >
         <mat-icon>settings</mat-icon>
       </button>
     </div>
-
   </div>
 
   <div class="right-menu">
     <div class="header-item">
       <button mat-button (click)="onClickLogout()">Выход</button>
     </div>
-  </div>
-
-  <div class="header-item"></div>
-  <div class="header-item user">
-    <div class="user-photo"></div>
+    <div class="header-item">
+      <button mat-icon-button (click)="onClickSettingsBoard()">
+        Общие настройки
+        <!-- <mat-icon>settings</mat-icon> -->
+      </button>
+    </div>
   </div>
 </div>
